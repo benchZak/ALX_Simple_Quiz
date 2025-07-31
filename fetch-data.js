@@ -6,8 +6,10 @@ async function fetchUserData() {
         const response = await fetch(apiUrl);
         const users = await response.json();
 
+        // Clear the "Loading user data..." message
         dataContainer.innerHTML = '';
 
+        // Create a <ul> to hold the list of users
         const userList = document.createElement('ul');
 
         users.forEach(user => {
@@ -16,12 +18,16 @@ async function fetchUserData() {
             userList.appendChild(listItem);
         });
 
+        // Append the list to the container
         dataContainer.appendChild(userList);
+
     } catch (error) {
-        dataContainer.innerHTML = '';
-        dataContainer.textContent = 'Failed to load user data.';
+        // Handle any errors
+        dataContainer.innerHTML = 'Failed to load user data.';
+        console.error('Error fetching user data:', error);
     }
 }
 
+// Invoke fetchUserData after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', fetchUserData);
 
